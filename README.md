@@ -11,7 +11,7 @@ Windows or Unix:
 
 Unix bashs style only:
 ```
-    chmod -x main.py
+    chmod +x main.py
     ./main.py -t 101.103.102.88 -u my_user -p my_password
 ```
 
