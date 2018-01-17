@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env python3
 import sys
 import argparse
 from winrm import Protocol,Session
