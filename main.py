@@ -1,3 +1,4 @@
+#!/bin/bash
 import sys
 import argparse
 from winrm import Protocol,Session
