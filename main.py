@@ -7,7 +7,7 @@ def inicialize_arguments_parser():
 
     parser.add_argument('-t', '--target', help='Target windows host', required=True, dest='target')
     parser.add_argument('-u', '--user', help='Username for the WinRM connection',required=True, dest='user')
-    parser.add_argument('-p', '--password', help='Password for the WinRM connectio',required=True, dest='password')
+    parser.add_argument('-p', '--password', help='Password for the WinRM connection',required=True, dest='password')
     args = parser.parse_args()
     
     return args
