@@ -7,22 +7,31 @@ A script to test if the WinRM service is working on target machine
 Windows or Unix:
 ```
     python main.py -t 101.103.102.88 -u my_user -p my_password
+
+    or 
+
+    # The CLI ask for the password
+    python main.py -t 101.103.102.88 -u my_user 
+    
 ```
 
 Unix bashs style only:
 ```
     chmod +x main.py
     ./main.py -t 101.103.102.88 -u my_user -p my_password
+    
+    # The CLI ask for the password
+    ./main.py -t 101.103.102.88 -u my_user
 ```
 
 The mandatory parameters are:
 
 - `-t` or `--target` , the target machine that will receive the WinRM connection.
 - `-u` or `--user` , the username for the user on the WinRm connection.
-- `-p` or `--password`, the password for the user on the WinRm connection.
 
 The optional parameters are:
 
+- `-p` or `--password`, the password for the user on the WinRm connection.
 - `-h` or `--help` , shows the help message with the available parameters.
 - `-port` , let you choose in which port the WinRM connection will happen.
 

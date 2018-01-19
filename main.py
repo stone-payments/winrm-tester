@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import argparse
+import getpass
 from winrm import Protocol,Session
 
 def inicialize_arguments_parser():
@@ -8,7 +9,7 @@ def inicialize_arguments_parser():
 
     parser.add_argument('-t', '--target', help='Target windows host', required=True, dest='target')
     parser.add_argument('-u', '--user', help='Username for the WinRM connection',required=True, dest='user')
-    parser.add_argument('-p', '--password', help='Password for the WinRM connection',required=True, dest='password')
+    parser.add_argument('-p', '--password', help='Password for the WinRM connection',required=False, dest='password')
     parser.add_argument('-port', help='Change the WinRM connection port',required=False, default="5986", dest='port')
     args = parser.parse_args()
     
@@ -22,6 +23,9 @@ def main():
     user = args.user
     port = args.port
     password = args.password
+
+    if password is None:
+        password = getpass.getpass('Digite com o Password: ')
 
     protocol = Protocol(
     endpoint='https://{target}:{port}/wsman'.format(target=target, port=port),
