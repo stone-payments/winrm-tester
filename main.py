@@ -43,12 +43,14 @@ def main():
         if(debug):        
             print(std_out)
             print(status_code)
+        sys.stdout.write('0')
         return 0
 
     except Exception:     
         if(debug):                   
             print("Error while trying to connect via WinRM")
             print(sys.exc_info()[1])
+        sys.stdout.write('1')
         return 1
 
 
