@@ -26,10 +26,9 @@ def main():
 
     if password is None:
         password = getpass.getpass('Digite com o Password: ')
-
     protocol = Protocol(
     endpoint='https://{target}:{port}/wsman'.format(target=target, port=port),
-    transport='ssl',
+    transport='ntlm',
     username=user,
     password=password,
     server_cert_validation='ignore')
