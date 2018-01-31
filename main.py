@@ -27,7 +27,7 @@ def main():
     debug = args.debug
 
     if password is None:
-        password = getpass.getpass('Digite com o Password: ')
+        password = getpass.getpass('Enter the Password: ')
     protocol = Protocol(
     endpoint='https://{target}:{port}/wsman'.format(target=target, port=port),
     transport='ntlm',
