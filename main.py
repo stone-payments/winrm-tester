@@ -66,9 +66,9 @@ def main():
         output_json = {}
         for i, target in enumerate(targets):        
             ip = socket.gethostbyname(target)
+            sys.stderr.write("[{index}/{total}] {current_target}\n".format(index=i+1,total=len(targets), current_target=target))
             result = test_winrm_connection(target, port, user, password)
             output_json[target]= { "ip": ip , "status": result["error"] }
-            print("[{}/{}]".format(i+1,len(targets)))
         pp = pprint.PrettyPrinter(indent=2)            
         pp.pprint(output_json)
 
