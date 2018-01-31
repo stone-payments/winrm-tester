@@ -64,10 +64,11 @@ def main():
             return 1
     else:
         output_json = {}
-        for target in targets:        
+        for i, target in enumerate(targets):        
             ip = socket.gethostbyname(target)
             result = test_winrm_connection(target, port, user, password)
             output_json[target]= { "ip": ip , "status": result["error"] }
+            print("[{}/{}]".format(i+1,len(targets)))
         pp = pprint.PrettyPrinter(indent=2)            
         pp.pprint(output_json)
 
