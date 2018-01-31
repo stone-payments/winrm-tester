@@ -11,7 +11,7 @@ def inicialize_arguments_parser():
     parser.add_argument('-u', '--user', help='Username for the WinRM connection',required=True, dest='user')
     parser.add_argument('-p', '--password', help='Password for the WinRM connection',required=False, dest='password')
     parser.add_argument('-port', help='Change the WinRM connection port',required=False, default="5986", dest='port')
-    parser.add_argument('-d', '--debug' , help='Enable debug messages',required=False, default=False, dest='debug')
+    parser.add_argument('-d', '--debug' , help='Enable debug messages',required=False,action='store_true', dest='debug')
     args = parser.parse_args()
     
     return args
