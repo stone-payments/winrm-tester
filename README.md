@@ -37,7 +37,8 @@ The optional parameters are:
 - `-p` or `--password`, the password for the user on the WinRm connection.
 - `-h` or `--help` , shows the help message with the available parameters.
 - `-port` , let you choose in which port the WinRM connection will happen.
-- `-d` or `-debug`, shows debug messages when running the script.
+- `-d` or `--debug`, shows debug messages when running the script.
+- `-o` or `--output`, let you choose the name of the output file when running with multiple target hosts. (default=output.json)
 
 ## Developing
 
