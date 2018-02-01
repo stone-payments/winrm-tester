@@ -3,7 +3,7 @@ import sys
 import argparse
 import getpass
 import socket
-import pprint
+import json
 from winrm import Protocol,Session
 
 def inicialize_arguments_parser():
@@ -14,6 +14,7 @@ def inicialize_arguments_parser():
     parser.add_argument('-p', '--password', help='Password for the WinRM connection',required=False, dest='password')
     parser.add_argument('-port', help='Change the WinRM connection port',required=False, default="5986", dest='port')
     parser.add_argument('-d', '--debug' , help='Enable debug messages',required=False,action='store_true', dest='debug')
+    parser.add_argument('-o,' '--output', help='Output file', required=False, default="output.json", dest='output')
     args = parser.parse_args()
     
     return args
@@ -45,7 +46,8 @@ def main():
     port = args.port
     password = args.password
     debug = args.debug
-
+    output_file = args.output
+    
     if password is None:
         password = getpass.getpass('Enter the Password: ')
 
@@ -63,14 +65,28 @@ def main():
             sys.stdout.write('1')
             return 1
     else:
-        output_json = {}
+        output_dict = {}
         for i, target in enumerate(targets):        
-            ip = socket.gethostbyname(target)
-            sys.stderr.write("[{index}/{total}] {current_target}\n".format(index=i+1,total=len(targets), current_target=target))
+            ip = "Unknown"
+            try:            
+                ip = socket.gethostbyname(target)
+            except Exception:     
+                sys.stderr.write("Could not resolve {} host".format(target))
+            print("[{index}/{total}] {current_target}\n".format(index=i+1,total=len(targets), current_target=target))
             result = test_winrm_connection(target, port, user, password)
-            output_json[target]= { "ip": ip , "status": result["error"] }
-        pp = pprint.PrettyPrinter(indent=2)            
-        pp.pprint(output_json)
+            output_dict[target]= { "ip": ip , "status": str(result["error"]) }
+            
+            temp_dict = { target: { 
+                            "ip": ip ,
+                            "status": str(result["error"])
+                            }
+                        }
+            with open("temp-" + output_file, 'a') as file:
+                file.write(json.dumps(temp_dict, indent=2, sort_keys=True))    
+                file.write("\n")    
+        print("Writing output file: {}\n".format(output_file))
+        with open(output_file, 'w') as file:
+            file.write(json.dumps(output_dict, indent=2, sort_keys=True))        
 
 if __name__ == '__main__':
     main()
